@@ -9,18 +9,18 @@
 
 Available on [Docker Hub](https://hub.docker.com) as [`ricardbejarano/mysqld_exporter`](https://hub.docker.com/r/ricardbejarano/mysqld_exporter):
 
-- [`0.12.1`, `master`, `latest` *(Dockerfile)*](https://github.com/ricardbejarano/mysqld_exporter/blob/master/Dockerfile)
+- [`0.12.1`, `master`, `latest` *(Dockerfile)*](https://github.com/ricardbejarano/mysqld_exporter/blob/master/Dockerfile) (about `14.8MB`)
 
 ### Quay
 
 Available on [Quay](https://quay.io) as [`quay.io/ricardbejarano/mysqld_exporter`](https://quay.io/repository/ricardbejarano/mysqld_exporter):
 
-- [`0.12.1`, `master`, `latest` *(Dockerfile)*](https://github.com/ricardbejarano/mysqld_exporter/blob/master/Dockerfile)
+- [`0.12.1`, `master`, `latest` *(Dockerfile)*](https://github.com/ricardbejarano/mysqld_exporter/blob/master/Dockerfile) (about `14.8MB`)
 
 
 ## Features
 
-* Super tiny (about `14.8MB`)
+* Super tiny (see [Tags](#tags))
 * Binary pulled from official sources during build time
 * Built `FROM scratch`, with zero bloat (see [Filesystem](#filesystem))
 * Reduced attack surface (no shell, no UNIX tools, no package manager...)
