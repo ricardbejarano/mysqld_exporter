@@ -5,7 +5,7 @@ ARG CHECKSUM="8fdd21c629963f5275ac772f59e8d32bafc8aee1ae61cf8ae996f30c92cbc360"
 
 ADD https://github.com/prometheus/mysqld_exporter/archive/v$VERSION.tar.gz /tmp/mysqld_exporter.tar.gz
 
-RUN [ "$CHECKSUM" = "$(sha256sum /tmp/mysqld_exporter.tar.gz | awk '{print $1}')" ] && \
+RUN [ "$(sha256sum /tmp/mysqld_exporter.tar.gz | awk '{print $1}')" = "$CHECKSUM" ] && \
     apk add ca-certificates curl make && \
     tar -C /tmp -xf /tmp/mysqld_exporter.tar.gz && \
     mkdir -p /go/src/github.com/prometheus && \
