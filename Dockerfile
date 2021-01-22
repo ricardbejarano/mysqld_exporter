@@ -1,23 +1,31 @@
-FROM alpine:3 AS build
+FROM golang:1-alpine AS build
 
 ARG VERSION="0.12.1"
-ARG CHECKSUM="133b0c281e5c6f8a34076b69ade64ab6cac7298507d35b96808234c4aa26b351"
+ARG CHECKSUM="8fdd21c629963f5275ac772f59e8d32bafc8aee1ae61cf8ae996f30c92cbc360"
 
-ADD https://github.com/prometheus/mysqld_exporter/releases/download/v$VERSION/mysqld_exporter-$VERSION.linux-amd64.tar.gz /tmp/mysqld_exporter.tar.gz
+ADD https://github.com/prometheus/mysqld_exporter/archive/v$VERSION.tar.gz /tmp/mysqld_exporter.tar.gz
 
 RUN [ "$CHECKSUM" = "$(sha256sum /tmp/mysqld_exporter.tar.gz | awk '{print $1}')" ] && \
-    tar -C /tmp -xf /tmp/mysqld_exporter.tar.gz
+    apk add ca-certificates curl make && \
+    tar -C /tmp -xf /tmp/mysqld_exporter.tar.gz && \
+    mkdir -p /go/src/github.com/prometheus && \
+    mv /tmp/mysqld_exporter-$VERSION /go/src/github.com/prometheus/mysqld_exporter && \
+    cd /go/src/github.com/prometheus/mysqld_exporter && \
+      make build
 
-RUN mkdir -p /rootfs/etc && \
-    cp /tmp/mysqld_exporter-$VERSION.linux-amd64/mysqld_exporter /rootfs/ && \
-    echo "nogroup:*:100:nobody" > /rootfs/etc/group && \
-    echo "nobody:*:100:100:::" > /rootfs/etc/passwd
+RUN mkdir -p /rootfs/bin && \
+      cp /go/src/github.com/prometheus/mysqld_exporter/mysqld_exporter /rootfs/bin/ && \
+    mkdir -p /rootfs/etc && \
+      echo "nogroup:*:10000:nobody" > /rootfs/etc/group && \
+      echo "nobody:*:10000:10000:::" > /rootfs/etc/passwd && \
+    mkdir -p /rootfs/etc/ssl/certs && \
+      cp /etc/ssl/certs/ca-certificates.crt /rootfs/etc/ssl/certs/
 
 
 FROM scratch
 
-COPY --from=build --chown=100:100 /rootfs /
+COPY --from=build --chown=10000:10000 /rootfs /
 
-USER 100:100
+USER 10000:10000
 EXPOSE 9104/tcp
-ENTRYPOINT ["/mysqld_exporter"]
+ENTRYPOINT ["/bin/mysqld_exporter"]
