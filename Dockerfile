@@ -1,7 +1,7 @@
 FROM golang:1-alpine AS build
 
-ARG VERSION="0.15.0"
-ARG CHECKSUM="7b1e88a84d5ac2f6589a2c85b70b368fe1ac497531ce1f45a70299a16f414d6d"
+ARG VERSION="0.15.1"
+ARG CHECKSUM="78b6e37bf95883f1a9a7411444c5c81236766f55a4a4cde2fde4438a59de47a2"
 
 ADD https://github.com/prometheus/mysqld_exporter/archive/v$VERSION.tar.gz /tmp/mysqld_exporter.tar.gz
 

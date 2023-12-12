@@ -20,10 +20,10 @@
 
 Available on Docker Hub as [`docker.io/ricardbejarano/mysqld_exporter`](https://hub.docker.com/r/ricardbejarano/mysqld_exporter):
 
-- [`0.15.0`, `latest` *(Dockerfile)*](Dockerfile)
+- [`0.15.1`, `latest` *(Dockerfile)*](Dockerfile)
 
 ### RedHat Quay
 
 Available on RedHat Quay as [`quay.io/ricardbejarano/mysqld_exporter`](https://quay.io/repository/ricardbejarano/mysqld_exporter):
 
-- [`0.15.0`, `latest` *(Dockerfile)*](Dockerfile)
+- [`0.15.1`, `latest` *(Dockerfile)*](Dockerfile)
